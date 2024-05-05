@@ -1,8 +1,7 @@
 import './ContractPage.css'
 import ModeContext from '../switchButton/ModeContext'
 import { Link } from 'react-router-dom'
-import { useContext } from 'react';
-import { useState } from "react";
+import { useContext, useState } from 'react';
 import { ethers } from "ethers";
 import contractABI  from "./ABI.json";
 import "./ContractPage.css";
@@ -10,74 +9,142 @@ import "./ContractPage.css";
 const contractAddress = "0x5fea12a995BBA34CB5Dd300A67B785cCf94a68B9";
 
 function Contract() {
-    const { language } = useContext(ModeContext);
+  const { language } = useContext(ModeContext);
 
-    const [name1, setName1] = useState("");
-    const [name2, setName2] = useState("");
-    const [number1, setNumber1] = useState(0);
-    const [number2, setNumber2] = useState(0);
-    const [loading, setLoading] = useState("");
+  const [namesArray, setNamesArray] = useState([]);
+  const [numbersArray, setNumbersArray] = useState([]);
 
-    const sendMembers = async (evt) => {
-        evt.preventDefault();
-        try {
-          if (window.ethereum) {
-            const provider = new ethers.BrowserProvider(window.ethereum);
-            await provider.send("eth_requestAccounts", []);
-            const signer = await provider.getSigner();
-            const contract = new ethers.Contract(
-              contractAddress,
-              contractABI,
-              signer,
-            );
-            
-            // Atualiza o array de nomes antes de enviar a transação
-            const namesArray = [name1, name2];
-            const numbersArray = [number1, number2];
-            console.log(namesArray);
-            console.log(numbersArray);
-    
-            setLoading("Enviando, aguarde um momento...");
-            console.log("Enviando")
-    
-            //Chamando a função no contrato e passando seus argumentos
-            const sendTxn = await contract.addMembers(namesArray, numbersArray);
-    
-            await sendTxn.wait();
-            setLoading("Enviado");
-            console.log("Enviado")
-           
-        } 
-        } catch (error) {
-          setLoading("Ops, ocorreu algum erro !!")
-      }
+  const [loading, setLoading] = useState("");
+  const [inputs, setInputs] = useState([]);
+
+  const text = language === 'en' ? {
+    title: 'Contract',
+    subtitle: 'Fill in the wallet address and percentage to be received',
+    addButton: 'Add row',
+    removeButton: 'Remove',
+    confirmButton: 'Confirm',
+    feedback: 'Register',
+    wallet: 'Wallet',
+    percentage: 'Percentage',
+    sending: 'Sending, please wait a moment...',
+    sent: 'Sent',
+    error: 'Oops, an error occurred!!',
+  } : { 
+    title: 'Contrato',
+    subtitle: 'Preencha o endereço da carteira e percentual a receber',
+    addButton: 'Adicionar linha',
+    removeButton: 'Remover',
+    confirmButton: 'Confirmar',
+    feedback: 'Register',
+    wallet: 'Carteira',
+    percentage: 'Porcentagem',
+    sending: 'Enviando, aguarde um momento...',
+    sent: 'Enviado',
+    error: 'Ops, ocorreu algum erro !!',
+  }
+
+  // Add an input element to the array
+  const addInput = () => {
+    setInputs([...inputs, { address: '', percentual: ''}]);
+  };
+
+  // Remove an input element from the array
+  const removeInput = (index) => {
+    setInputs(inputs => inputs.filter((_, i) => i !== index));
+  };
+
+  // Render the input elements
+  const inputElements = inputs.map((input, index) => (
+    <div key={index} className="input-box">
+      <input
+        type="text"
+        placeholder={text.wallet}
+        name="address"
+        value={input.adress}
+        onChange={(event) => handleInputChange(index, event)}
+      />
+      <input
+        type="number"
+        placeholder={text.percentage}
+        name="percentual"
+        value={input.percentual}
+        onChange={(event) => handleInputChange(index, event)}
+        step="0.01"
+      />
+      <button className="remove-button" onClick={() => removeInput(index)}>{text.removeButton}</button>
+    </div>
+  ));
+
+  const handleInputChange = (index, event) => {
+    const values = [...inputs];
+    values[index][event.target.name] = event.target.value;
+    setInputs(values);
+
+    // Update the namesArray and numbersArray arrays
+    const newNamesArray = [...namesArray];
+    const newNumbersArray = [...numbersArray];
+    newNamesArray[index] = event.target.name === 'address' ? event.target.value : newNamesArray[index];
+    newNumbersArray[index] = event.target.name === 'percentual' ? parseFloat(event.target.value) : newNumbersArray[index];
+    setNamesArray(newNamesArray);
+    setNumbersArray(newNumbersArray);
+  };
+
+  const isFormValid = () => {
+    const sum = numbersArray.reduce((a, b) => a + b, 0);
+    if (sum !== 100) {
+      return false;
     }
+    return inputs.every((input) => input.address!== '' && input.percentual!== '');
+  };
 
-    return (
-        <div className="container-contract">
-          <div className="sub-container">
-          <div class="modal">
-          <form onSubmit={sendMembers} className="form">
-            <h1 className="text-contract">Envie o nome, wallet, e a porcentagem que cada um irá receber</h1>
-           <div className="inputs">
-            <input type="text" placeholder='Nome' className="input" />
-            <input value={name1} onChange={(e) => { setName1(e.target.value); console.log('Name 1:', name1); }} type="text" placeholder="Wallet" className="input"/>
-            <input value={number1} onChange={(e) => setNumber1(parseInt(e.target.value))} type="number" placeholder="Porcentagem"  className="input"/>
-           </div>
-    
-           <div className="inputs">
-            <input type="text" placeholder="Nome" className="input" />
-            <input value={name2} onChange={(e) => { setName2(e.target.value); console.log('Name 2:', name2); }} type="text" placeholder="Wallet" className="input"/>
-            <input value={number2} onChange={(e) => setNumber2(parseInt(e.target.value))} type="number" placeholder="Porcentagem" className="input"/>
-           </div>
-    
-            <button type="submit" className="button-confirm">Confirmar</button>
-            <span className="loading">{loading}</span>
-          </form>
-        </div>
-        </div>
-        </div>
-      )
+  const sendMembers = async (evt) => {
+    evt.preventDefault();
+    try {
+      if (window.ethereum) {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        const signer = await provider.getSigner();
+        const contract = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          signer,
+        );
+        
+        console.log(namesArray);
+        console.log(numbersArray);
+
+        setLoading(text.sending);
+        console.log("Enviando")
+
+        //Chamando a função no contrato e passando seus argumentos
+        const sendTxn = await contract.addMembers(namesArray, numbersArray);
+
+        await sendTxn.wait();
+        setLoading(text.sent);
+        console.log("Enviado"); 
+      }
+
+    } catch (error) {
+      console.log(error)
+      setLoading(text.error)
+    }
+  }
+
+  return (
+    <div className="container-contract">
+      <div className="form">
+        <p className="text1-contract">{text.title}</p>
+        <p className="text2-contract">{text.subtitle}</p>
+
+        {inputElements}
+        <button className="add-button" onClick={addInput}>{text.addButton}</button>
+
+        <button className="confirm-button" onClick={sendMembers} disabled={!isFormValid()}>{text.confirmButton}</button>
+
+        <span className="loading">{loading}</span>
+      </div>
+    </div>
+  )
 }
 
 export default Contract;
