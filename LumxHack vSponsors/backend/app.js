@@ -43,74 +43,30 @@ app.post('/register', (req, res) => {
         .catch(err => console.error(err));
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
-
-/* app.post('/getidbyemail', (req, res) => {
+app.post('/alreadyregistered', (req, res) => {
     // Extrair os dados do corpo da requisição
     const { email } = req.body;
 
-    let id;
+    console.log(req.body);
+    console.log(email);
+    let response;
 
-    db.each("SELECT id FROM clientes WHERE email = ?", [email], (err, row) => {
+    db.each("SELECT * FROM clientes WHERE email = ?", [email], (err, row) => {
         if (err) {
           console.error(err.message);
         }
         if (row) {
-            // ID do cliente encontrado
-            const id = row.id;
-            console.log('ID do cliente:', id);
-            res.send(id.toString()); // Enviar o ID como resposta ao client
+            console.log('Email:', email);
+            res.send(row); 
         } else {
             // Cliente não encontrado
             console.log('Cliente não encontrado');
-            res.status(404).send('Cliente não encontrado');
+            res.status(404).send(false);
         }
       });
-}); */
-
-/* app.post('/add_data', (req, res) => {
-    const { value1, value2 } = req.body;
-    db.run('INSERT INTO your_table (column1, column2) VALUES (?, ?)', [value1, value2], function(err) {
-        if (err) {
-            res.status(500).send('Error adding data');
-        } else {
-            res.send('Data added successfully');
-        }
-    });
 });
- */
-// Define routes
-/* app.get('/get_data', (req, res) => {
-    db.all('SELECT * FROM your_table', (err, rows) => {
-        if (err) {
-            res.status(500).send('Error fetching data');
-        } else {
-            res.json(rows);
-        }
-    });
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
-app.use(bodyParser.json()); */
-
-
-
-// Execute consultas SQL
-/* db.serialize(() => {
-  db.run("CREATE TABLE IF NOT EXISTS clientes (id INTEGER PRIMARY KEY, email VARCHAR(30), senha VARCHAR(24), id_lumx VARCHAR(40))");
-
-  db.run("INSERT INTO clientes (email, senha, id_lumx) VALUES (?, ?, ?)", "exemplo@gmail.com", "qwerty123", "3c90c3cc-0d44-4b50-8888-8dd257360000", function(err) {
-    if (err) {
-      return console.error(err.message);
-    }
-    console.log(`Registro inserido com sucesso, ID: ${this.lastID}`);
-  });
- */
-  db.each("SELECT id, email, senha, id_lumx FROM clientes", (err, row) => {
-    if (err) {
-      console.error(err.message);
-    }
-    console.log(row.id + "\t" + row.email + "\t" + row.senha + "\t" + row.id_lumx);
-  });
-/* }); */

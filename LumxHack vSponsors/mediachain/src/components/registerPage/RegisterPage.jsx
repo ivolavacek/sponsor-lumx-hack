@@ -7,6 +7,8 @@ import './RegisterPage.css'
 import ModeContext from '../switchButton/ModeContext'
 
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const EMAIL_REGEX = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,}$/;
+
 
 const Register = () => {
     const { language, toggleLanguage } = useContext(ModeContext);
@@ -36,7 +38,7 @@ const Register = () => {
     }, [])
 
     useEffect(() => {
-        setValidEmail(email.length >= 6 ? true : false);
+        setValidEmail(EMAIL_REGEX.test(email));
     }, [email])
 
     useEffect(() => {
@@ -51,7 +53,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // if user tries to submit enabling the button
-        const v1 = email.length >= 6 ? true : false;
+        const v1 = EMAIL_REGEX.test(email);
         const v2 = PWD_REGEX.test(pwd);
         if (!v1 || !v2) {
             setErrMsg("Invalid. Try Again.");
@@ -59,22 +61,32 @@ const Register = () => {
         }
         // Back-end
         try {
-            const response = await axios.post('http://localhost:3000/register',
-                JSON.stringify({ email, pwd }),
+            const verify = await axios.post('http://localhost:3000/alreadyregistered',
+                JSON.stringify({ email }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 })
-                
-            setLumxId(response.data);
 
-            setSuccess(true);
-            //clear state and controlled inputs
-            //need value attrib on inputs for this
-            setEmail('');
-            setPwd('');
-            setMatchPwd('');
+            if (verify) {
+                setErrMsg('Already Registered');
+            } else {
+                const response = await axios.post('http://localhost:3000/register',
+                    JSON.stringify({ email, pwd }),
+                    {
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true
+                    })
+                    
+                setLumxId(response.data);
 
+                setSuccess(true);
+                //clear state and controlled inputs
+                //need value attrib on inputs for this
+                setEmail('');
+                setPwd('');
+                setMatchPwd('');
+            }
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -209,7 +221,6 @@ const Register = () => {
                     <p>
                         {text.already}<br />
                         <span className="line">
-                            {/*put router link here*/}
                             <a className="login" href="/login">Login</a>
                         </span>
                     </p>
