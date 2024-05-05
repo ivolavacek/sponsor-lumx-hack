@@ -44,26 +44,19 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/alreadyregistered', (req, res) => {
-    // Extrair os dados do corpo da requisição
-    const { email } = req.body;
+  // Extrair os dados do corpo da requisição
+  const { email } = req.body;
 
-    console.log(req.body);
-    console.log(email);
-    let response;
-
-    db.each("SELECT * FROM clientes WHERE email = ?", [email], (err, row) => {
-        if (err) {
-          console.error(err.message);
-        }
-        if (row) {
-            console.log('Email:', email);
-            res.send(row); 
-        } else {
-            // Cliente não encontrado
-            console.log('Cliente não encontrado');
-            res.status(404).send(false);
-        }
-      });
+  db.get("SELECT email FROM clientes WHERE email = ?", [email], (err, row) => {
+    if (err) {
+      console.error(err.message);
+    }
+    if (row) {
+        res.send(row.email); 
+    } else {
+        res.send(false);
+    }
+  });
 });
 
 // Start the server

@@ -68,7 +68,7 @@ const Register = () => {
                     withCredentials: true
                 })
 
-            if (verify) {
+            if (verify == false) {
                 setErrMsg('Already Registered');
             } else {
                 const response = await axios.post('http://localhost:3000/register',
@@ -80,6 +80,7 @@ const Register = () => {
                     
                 setLumxId(response.data);
 
+
                 setSuccess(true);
                 //clear state and controlled inputs
                 //need value attrib on inputs for this
@@ -90,8 +91,6 @@ const Register = () => {
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
-            } else if (err.response?.status === 409) {
-                setErrMsg('Email already used');
             } else {
                 setErrMsg('Registration Failed')
             }
