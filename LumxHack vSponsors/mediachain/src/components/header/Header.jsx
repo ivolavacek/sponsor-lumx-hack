@@ -9,6 +9,13 @@ import { useContext } from 'react';
 function Header() {
     const { language } = useContext(ModeContext);
     
+    const text = language === 'en' ? {
+        register: 'Register',
+        login: 'Login',
+    } : { 
+        register: 'Increva-se',
+        login: 'Login',
+    }
 
     return (
         <>
@@ -22,8 +29,8 @@ function Header() {
 
                 <div className="button-container">
                     <div className="lang-switch"><SwitchButton /></div>
-                    <Link to="/register"><button className="button">Register</button></Link>
-                    <Link to="/login"><button className="button">Login</button></Link>
+                    <Link to="/register"><button className="button">{text.register}</button></Link>
+                    <Link to="/login"><button className="button">{text.login}</button></Link>
                 </div>
             </div>
         </>

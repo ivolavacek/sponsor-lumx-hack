@@ -1,22 +1,3 @@
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: white;
-  cursor: pointer;
-  transition: border-color 0.25s;
-  text-decoration: none;
-  
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
 body {
   margin: 0;
   font-family: 'Helvetica Neue', 'Courier New', 'Monaco', 'Fira Sans', 'Roboto', 'Source Code Pro', 'Menlo', 'Consolas',
@@ -36,101 +17,24 @@ body {
 }
 
 html {
-    font-family: 'Poppins', sans-serif;
     font-size: 22px;
     color: #fff;
 }
 
-.App {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; 
-  padding: 1rem 0.5rem;
-}
-
-section {
-    color: black;
-    width: 100%;
-    max-width: 420px;
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    font-size: 18px;
-    padding: 1rem;
-    background-color: #FFC509;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    flex-grow: 1;
-    padding-bottom: 1rem;
-}
-
-a, a:visited {
-    color: #941344;
-}
-
-input[type="text"],
-input[type="password"],
-button,
-textarea {
-  font-size: 22px;
-  padding: 0.3rem;
-  border-radius: 0.2rem;
-}
-
-label,
 button {
-  margin-top: 2rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  text-decoration: none;
 }
 
-button {
-  padding: 0.5rem;
-}
-
-.instructions {
-    font-size: 0.75rem;
-    border-radius: 0.5rem;
-    background: #941344;
-    color: #fff;
-    padding: 0.25rem;
-    position: relative;
-    bottom: -10px;
-}
-
-.instructions > svg {
-    margin-right: 0.25rem;
-}
-
-.offscreen {
-    position: absolute;
-    left: -9999px;
-}
-
-.hide {
-    display: none;
-}
-
-.valid {
-    margin-left: 0.25rem;
-}
-
-.invalid {
-    margin-left: 0.25rem;
-}
-
-.errmsg {
-    background-color: lightpink;
-    color: #941344;
-    font-weight: bold;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.line {
-    display: inline-block;
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
 }

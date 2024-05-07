@@ -12,3 +12,118 @@
     font-size: 40px;
     margin-top: 10px;
 }
+
+section {
+    color: black;
+    width: 100%;
+    max-width: 420px;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    padding: 1rem;
+    background-color: #FFC509;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+}
+
+a, a:visited {
+    color: #941344;
+}
+
+input[type="text"],
+input[type="password"],
+button,
+textarea {
+  font-size: 15px;
+  padding: 0.3rem;
+  border-radius: 0.2rem;
+}
+
+label,
+button {
+  margin-top: 2rem;
+}
+
+button {
+  padding: 0.5rem;
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #941344;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+.instructions > svg {
+    margin-right: 0.25rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    margin-left: 0.25rem;
+}
+
+.errmsg {
+    background-color: lightpink;
+    color: #941344;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.line {
+    display: inline-block;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin-bottom: 30px;
+}
+
+.button-register-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    margin-top: 30px;
+}
+
+.button-login-register {
+    background-color: #941344;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+}

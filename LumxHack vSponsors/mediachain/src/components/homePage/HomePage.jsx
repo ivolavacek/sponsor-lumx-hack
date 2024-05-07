@@ -15,7 +15,7 @@ import React, { useState, useContext } from 'react'
 import ModeContext from '../switchButton/ModeContext'
 
 const HomePage = () => {
-    const { language, toggleLanguage } = useContext(ModeContext);
+    const { language } = useContext(ModeContext);
 
     const text = language === 'en' ? {
         title1: 'Manage copyright for any type of media',
@@ -57,14 +57,14 @@ const HomePage = () => {
             { text: 'Monitore seus ganhos e distribuição de royalties' },
             { text: 'Obtenha contratos transparentes com seus colegas' },
         ],
-        title3: 'Ferramentas',
+        title3: 'Funcionalidades',
         features: [
           { title: 'Permite colaboração', text: 'Crie contratos personalizados com todos os interessados no projeto' },
           { title: 'Cria transparência', text: 'Forneça acesso para verificar todas as transações e divisões de pagamentos' },
           { title: 'Oferece suporte jurídico', text: 'Obtenha ajuda para enviar seu conteúdo para várias plataformas' },
           { title: 'Gera declarações automáticas', text: 'Obtenha extratos bancários em tempo real' },
-          { title: 'Você recebe o pagamento', text: 'Liquide pagamentos diretamente em sua conta bancária' },
-          { title: 'Avalia o desempenho', text: 'Painel com insights e análise de receita' },
+          { title: 'Receba seus pagamentos', text: 'Liquide pagamentos diretamente em sua conta bancária' },
+          { title: 'Avalie seu desempenho', text: 'Painel com insights e análise de receita' },
         ],
         title4: 'Nosso time',
         team: [

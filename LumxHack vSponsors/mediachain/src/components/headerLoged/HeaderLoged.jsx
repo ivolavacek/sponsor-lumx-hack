@@ -9,6 +9,15 @@ import { useContext } from 'react';
 function Header() {
     const { language } = useContext(ModeContext);
     
+    const text = language === 'en' ? {
+        dash: 'Dashboard',
+        contract: 'Contract',
+        logout: 'Logout',
+    } : {
+        dash: 'Dashboard',
+        contract: 'Contrato',
+        logout: 'Logout',
+    }
 
     return (
         <>
@@ -22,9 +31,9 @@ function Header() {
 
                 <div className="button-container">
                     <div className="lang-switch"><SwitchButton /></div>
-                    <Link to="/dash"><button className="button">Dashboard</button></Link>
-                    <Link to="/contract"><button className="button">Contract</button></Link>
-                    <Link to="/"><button className="button">Logout</button></Link>
+                    <Link to="/dash"><button className="button">{text.dash}</button></Link>
+                    <Link to="/contract"><button className="button">{text.contract}</button></Link>
+                    <Link to="/"><button className="button">{text.logout}</button></Link>
                 </div>
             </div>
         </>

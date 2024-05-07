@@ -1,12 +1,16 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react"
+import { Link } from 'react-router-dom'
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from 'axios';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import axios from 'axios'
 import './RegisterPage.css'
+import ModeContext from '../switchButton/ModeContext'
 
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Register = () => {
+    const { language, toggleLanguage } = useContext(ModeContext);
+
     const emailRef = useRef();
     const errRef = useRef();
 
@@ -83,25 +87,57 @@ const Register = () => {
         }
     }
 
+    const text = language === 'en' ? {
+        h1: 'Account created!',
+        h2: 'Welcome to MediaChain',
+        yourId: 'Your id:',
+        title: 'Register',
+        email: 'Email',
+        password: 'Password',
+        confirm: 'Confirm Password',
+        button: 'Register',
+        already: 'Already registred?',
+        error1: "Make sure it's a valid email.",
+        error2: 'Passwords must match.',
+        instruction1: '8 to 24 characters.',
+        instruction2: 'Must include uppercase and lowercase letters, a number and a special character.',
+        instruction3: 'Allowed special characters: ',
+    } : {
+        h1: 'Conta criada!',
+        h2: 'Bem-vindo a MediaChain',
+        yourId: 'Sua id:,',
+        title: 'Registro',
+        email: 'Email',
+        password: 'Senha',
+        confirm: 'Confirme a senha',
+        button: 'Registrar',
+        already: 'Já registrado?',
+        error1: "Certifique que o email é válido.",
+        error2: 'As senhas devem corresponder.',
+        instruction1: 'De 8 a 24 caracteres.',
+        instruction2: 'Deve incluir pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.',
+        instruction3: 'Caracteres especiais permitidos: ',
+    }
+
     return(
         <>
         <div className="registro">
             {success ? (
                 <section>
-                    <h1>Account created!</h1>
-                    <h2>Welcome to Mediachain</h2>
-                    <p>Your id is {lumxId}</p>
-                    <p>
-                        <a href="/login">Login</a>
-                    </p>
+                    <h1>{text.h1}</h1>
+                    <h2>{text.h2}</h2>
+                    <p>{text.yourId} {lumxId}</p>
+                    <div className="button-register-container">
+                        <Link to="/login"><button className="button-login-register">Login</button></Link>
+                    </div>
                 </section>
             ) : (
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <div className="title-register">Register</div>
+                    <div className="title-register">{text.title}</div>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="email">
-                            Email:
+                            {text.email}:
                             <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? "hide" : "invalid"} />
                         </label>
@@ -120,11 +156,11 @@ const Register = () => {
                         />
                         <p id="uidnote" className={emailFocus && email && !validEmail ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            Make sure it's a valid email.<br />
+                            {text.error1}<br />
                         </p>
 
                         <label htmlFor="password">
-                            Password:
+                            {text.password}:
                             <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
                         </label>
@@ -141,14 +177,14 @@ const Register = () => {
                         />
                         <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            8 to 24 characters.<br />
-                            Must include uppercase and lowercase letters, a number and a special character.<br />
-                            Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                            {text.instruction1}<br />
+                            {text.instruction2}<br />
+                            {text.instruction3}<span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                         </p>
 
 
                         <label htmlFor="confirm_pwd">
-                            Confirm Password:
+                            {text.confirm}:
                             <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
                         </label>
@@ -165,16 +201,16 @@ const Register = () => {
                         />
                         <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            Passwords must match.
+                            {text.error2}
                         </p>
 
-                        <button disabled={!validEmail || !validPwd || !validMatch ? true : false}>Register</button>
+                        <button disabled={!validEmail || !validPwd || !validMatch ? true : false}>{text.button}</button>
                     </form>
                     <p>
-                        Already registered?<br />
+                        {text.already}<br />
                         <span className="line">
                             {/*put router link here*/}
-                            <a className="login" href="/login">Log In</a>
+                            <a className="login" href="/login">Login</a>
                         </span>
                     </p>
                 </section>
