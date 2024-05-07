@@ -1,0 +1,25 @@
+.menu-container {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.dash {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 100px;
+}
+
+.dash p{
+    color: #000;
+    font-weight: bold;
+}
+
+.dash-img {
+    margin-top: 20px;
+}

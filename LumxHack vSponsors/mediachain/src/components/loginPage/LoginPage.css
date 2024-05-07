@@ -1,0 +1,20 @@
+.menu-container-login {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.aaa {
+    color: #000;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.bbb {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
