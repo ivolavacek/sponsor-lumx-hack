@@ -8,7 +8,7 @@
 - Account abstraction for users, implemented with [Lumx Protocol](https://docs.lumx.io/get-started/introduction);
 
 
-In our platform, users can send their art, whether it be a song (audio) or video, and it will be turn into an NFT1155 representing the ownership of the copyright, without having to create a Metamask. This NFT can have multiple owners, each one having their respective percentage on the royalty payment of that work (e.g.: composer (40%), vocalist (30%), guitarist (30%)). 
+In our platform, users can send their art, whether it be a song (audio) or video, and it will be turn into a smart contract, representing the ownership of the copyright in percentual form (with each artist having their respective percentage on royalty payment of that work (e.g.: composer (40%), vocalist (30%), guitarist (30%)). 
 
 https://sepolia.etherscan.io/address/0xaF078620D83ab3Cf23f7170CbDdEDc00B8aa4f2F
 
