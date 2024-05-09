@@ -6,6 +6,7 @@
 
 - Blockchain-based approach, with our own appchain built with [Tanssi](https://www.tanssi.network/testnet-campaign);
 - Account abstraction for users, implemented with [Lumx Protocol](https://docs.lumx.io/get-started/introduction);
+- Using the Scroll network, an Ethereum L2 network https://docs.scroll.io/en/home/
 
 
 In our platform, users can send their art, whether it be a song (audio) or video, and it will be turn into a smart contract, representing the ownership of the copyright in percentual form (with each artist having their respective percentage on royalty payment of that work (e.g.: composer (40%), vocalist (30%), guitarist (30%)). 
