@@ -10,7 +10,7 @@
 
 In our platform, users can send their art, whether it be a song (audio) or video, and it will be turn into a smart contract, representing the ownership of the copyright in percentual form (with each artist having their respective percentage on royalty payment of that work (e.g.: composer (40%), vocalist (30%), guitarist (30%)). 
 
-(https://sepolia.scrollscan.com/address/0x2f343d524b2a3f1842d5dee186b9f3d2ba7f9805#code)
+https://sepolia.scrollscan.com/address/0x2f343d524b2a3f1842d5dee186b9f3d2ba7f9805#code
 
 > This is an under-development project. Please wait for future versions.
 
