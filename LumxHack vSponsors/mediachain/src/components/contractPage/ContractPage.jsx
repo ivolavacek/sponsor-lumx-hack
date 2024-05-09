@@ -6,7 +6,7 @@ import { ethers } from "ethers";
 import contractABI  from "./ABI.json";
 import "./ContractPage.css";
 
-const contractAddress = "0x5fea12a995BBA34CB5Dd300A67B785cCf94a68B9";
+const contractAddress = "0x2F343D524b2A3F1842d5deE186b9f3d2ba7f9805";
 
 function Contract() {
   const { language } = useContext(ModeContext);
