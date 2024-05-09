@@ -390,13 +390,19 @@
 				"type": "address[]"
 			},
 			{
-				"internalType": "uint256[]",
+				"internalType": "uint8[]",
 				"name": "percentages_",
-				"type": "uint256[]"
+				"type": "uint8[]"
 			}
 		],
 		"name": "addMembers",
-		"outputs": [],
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -556,6 +562,30 @@
 			}
 		],
 		"name": "members",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "member",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "percentage",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "membersMap",
 		"outputs": [
 			{
 				"internalType": "address",
