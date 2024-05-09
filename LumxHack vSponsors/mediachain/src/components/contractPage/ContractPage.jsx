@@ -19,7 +19,7 @@ function Contract() {
 
   const text = language === 'en' ? {
     title: 'Contract',
-    subtitle: 'Fill in the wallet address and percentage to be received',
+    subtitle: 'Fill in the wallet addresses and percentages to be received',
     addButton: 'Add row',
     removeButton: 'Remove',
     confirmButton: 'Confirm',
@@ -31,7 +31,7 @@ function Contract() {
     error: 'Oops, an error occurred!!',
   } : { 
     title: 'Contrato',
-    subtitle: 'Preencha o endereço da carteira e percentual a receber',
+    subtitle: 'Preencha o endereço da carteiras e percentuais a receber',
     addButton: 'Adicionar linha',
     removeButton: 'Remover',
     confirmButton: 'Confirmar',
